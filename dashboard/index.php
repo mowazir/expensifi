@@ -120,7 +120,7 @@ require 'dp_partials/head_nav.php';
                   </div>
                   <div>
 
-                    <p class="fw-bold"> ₦<?= number_format($allExpense, 2) ?> </p>
+                    <p class="fw-bold"> ₦ <?= $allExpense ?? "0.00" ?> </p>
                     <span class="mb-0 text-success">Total Expense</span>
                   </div>
                 </div>
@@ -168,7 +168,7 @@ require 'dp_partials/head_nav.php';
                             <tbody id="">
                         
                     <?php 
-                        if (count($transactions) > 0) {
+                        if ( $user_online && count($transactions) > 0) {
                             foreach($transactions as $transaction) { ?>
                                 <tr>
                                
@@ -217,7 +217,7 @@ require 'dp_partials/head_nav.php';
                        <?php 
                         } ?> 
                     <?php } else {
-                            echo "<tr><td colspan = '4'> Oopsies! You haven\'nt create any expense yet. <a href='add_expense.php' class='btn btn-secondary'>Click here to create one</a> </td></tr>";
+                            echo "<tr><td colspan = '4'> Oopsies! You have not create any expense yet. <a href='add_expense.php' class='btn btn-secondary'>Click here to create one</a> </td></tr>";
                        } ?>
 
                             </tbody>
@@ -226,7 +226,11 @@ require 'dp_partials/head_nav.php';
                 </div>
 
 
-    <?php require 'dp_partials/paginator.php'; ?>
+    <?php 
+       if ( count($transactions) <= 0) {
+        $pag = require 'dp_partials/paginator.php';
+        } 
+    ?>
         
         
      
